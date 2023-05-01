@@ -1,26 +1,21 @@
 from utils.treeParser import Employee, Team, Area, Function, Tribe, Competence
 from typing import List
-from flask import url_for
+
 
 def employeeHTML(e: Employee, l:List[Competence]):
-	yellowFilter = 'filter: invert(81%) sepia(53%) saturate(661%) hue-rotate(344deg) brightness(97%) contrast(94%)'
-	orangeFilter = 'filter: invert(74%) sepia(42%) saturate(3131%) hue-rotate(337deg) brightness(98%) contrast(84%);'
-
-	colorDict = {
-		"#f1c232": yellowFilter,
-		"#e69138": orangeFilter
-	}
-
-	c = Competence('Competence not found', 'An error occurred', '#F00')
+	c = Competence('Competence not found', 'An error occurred', '#FF0000')
 
 	for com in l:
 		if com.name == e.competence_lead and com.competence == e.competence:
 			c = com
-	
-	color = colorDict.get(c.color, '')
+			
 	return f""" <div class='employee'>
- 					<img width=30 height=30 src="{url_for('static',filename = 'user.svg')}" style='{color}'>
-	  				</img>
+ 					<svg viewBox="0 0 500 500" width=30 height=30 style="fill:{c.color}">
+						<path d="M256,224c53,0,96-43,96-96s-43-96-96-96s-96,43-96,96S203,224,256,224z M256,256c-70.7,0-128-57.3-128-128S185.3,0,256,0
+							s128,57.3,128,128S326.7,256,256,256z"/>
+						<path d="M96,512H64v-79.4c0-79.5,64.5-144,144-144c0.2,0,32.5,0.2,96.7,0.5c79.3,0.4,143.3,64.7,143.3,144V512h-32v-78.9
+							c0-61.6-49.8-111.7-111.5-112l-96-0.5c-62.4,0-112.5,50.1-112.5,112V512z"/>
+					</svg>
 	   				<p>
 						{e.name}
 	  				</p>

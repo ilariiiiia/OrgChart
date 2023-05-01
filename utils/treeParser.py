@@ -1,5 +1,5 @@
 # this is likely not very optimized but it does the job
-
+import random
 import csv
 
 class Employee:
@@ -86,13 +86,10 @@ class Function:
 		return self.name
 
 class Competence:
-	def __init__(self, name, competence, color):
+	def __init__(self, name, competence, color=None):
 		self.name = name
 		self.competence = competence
-		self.color = color
-
-def generateColor(i):
-	return ["#f1c232", "#e69138"][i]
+		self.color = color or "#" + ''.join([random.choice('0123456789ABCDEF') for j in range(6)])
 
 class Tribe:
 	def __init__(self, name:str, lead:str, employees:list[Employee]):
@@ -117,7 +114,7 @@ class Tribe:
 		self.competences = []
 		
 		for i, elem in enumerate(self.competence_leads):
-			self.competences.append(Competence(elem[0], elem[1], generateColor(i)))
+			self.competences.append(Competence(elem[0], elem[1]))
 
 	def __repr__(self):
 		return self.name
