@@ -1,0 +1,82 @@
+body, html {
+	height: 100%;
+	width: 100%;
+	margin: 0px;
+	border-radius: 0px;
+	text-align: center;
+	font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+select {
+	margin: 25px;
+	padding: 5px;
+}
+
+.allWrapper {
+	display: flex;
+	align-items: center;
+}
+
+.tribesWrapper {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+}
+
+.tribesWrapper * {
+	padding: 5px;
+	margin: 5px;
+	border-radius: 15px;
+}
+
+.tribe {
+	background-color: #1c4587;
+	max-width: 450px;
+	height: max-content;
+}
+
+.function {
+	background-color: #3c78d8;
+}
+
+.areasWrapper {
+	display: flex;
+    flex-direction: row;
+	flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: stretch;
+}
+
+.area {
+	width: 40%;
+	background-color: #15c;
+}
+
+.area * {
+	margin: 0px;
+	padding: 0px;
+}
+
+.teamsWrapper {
+	text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.team {
+	border: 1px dotted white;
+    font-size: small;
+    margin: 15px 0px;
+    width: fit-content;
+    padding: 5px;
+}
+
+.yellowSVG {
+	color: #f1c232;
+}
+
+.orangeSVG {
+	color: #e69138;
+}
