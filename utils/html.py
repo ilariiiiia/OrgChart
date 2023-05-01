@@ -2,10 +2,22 @@ from utils.treeParser import Employee, Team, Area, Function, Tribe, Competence
 from typing import List
 from flask import url_for
 
-def employeeHTML(e: Employee, i:int):
+def employeeHTML(e: Employee, l:List[Competence]):
 	yellowFilter = 'filter: invert(81%) sepia(53%) saturate(661%) hue-rotate(344deg) brightness(97%) contrast(94%)'
 	orangeFilter = 'filter: invert(74%) sepia(42%) saturate(3131%) hue-rotate(337deg) brightness(98%) contrast(84%);'
-	color = [yellowFilter, orangeFilter][i%2]
+
+	colorDict = {
+		"#f1c232": yellowFilter,
+		"#e69138": orangeFilter
+	}
+
+	c = Competence('Competence not found', 'An error occurred', '#F00')
+
+	for com in l:
+		if com.name == e.competence_lead and com.competence == e.competence:
+			c = com
+	
+	color = colorDict.get(c.color, '')
 	return f""" <div class='employee'>
  					<img width=30 height=30 src="{url_for('static',filename = 'user.svg')}" style='{color}'>
 	  				</img>
@@ -14,10 +26,10 @@ def employeeHTML(e: Employee, i:int):
 	  				</p>
 	  			</div>"""
 
-def teamEmployees(t: Team):
-	return "".join(employeeHTML(e, i) for i, e in enumerate(t.employees))
+def teamEmployees(t: Team, tr: Tribe):
+	return "".join(employeeHTML(e, tr.competences) for e in t.employees)
 
-def teamHTML(t: Team):
+def teamHTML(t: Team, tr: Tribe):
 	return f""" <div class='team'>
  					<h5>
 	  					{t.name}
@@ -26,14 +38,14 @@ def teamHTML(t: Team):
 	  					{t.lead}
 					</p>
 	 				<div class='employeesWrapper'>
-	  					{teamEmployees(t)}
+	  					{teamEmployees(t, tr)}
 	  				</div>
 	 			</div>"""
 
-def areaTeams(a: Area):
-	return "".join(teamHTML(t) for t in a.teams)
+def areaTeams(a: Area, tr: Tribe):
+	return "".join(teamHTML(t, tr) for t in a.teams)
 
-def areaHTML(a: Area):
+def areaHTML(a: Area, tr: Tribe):
 	return f""" <div class='area'>
  					<h5>
 	  					{a.name}
@@ -42,14 +54,14 @@ def areaHTML(a: Area):
 	  					{a.lead}
 					</p>
 	 				<div class='teamsWrapper'>
-	  					{areaTeams(a)}
+	  					{areaTeams(a, tr)}
 	  				</div>
 	 			</div>"""
 
-def functionAreas(f: Function):
-	return "".join(areaHTML(a) for a in f.areas)
+def functionAreas(f: Function, tr: Tribe):
+	return "".join(areaHTML(a, tr) for a in f.areas)
 
-def functionHTML(f: Function):
+def functionHTML(f: Function, tr: Tribe):
 	return f""" <div class='function'>
  					<h5>
 	  					{f.name}
@@ -58,12 +70,12 @@ def functionHTML(f: Function):
 	  					{f.lead}
 					</p>
 	 				<div class='areasWrapper'>
-	  					{functionAreas(f)}
+	  					{functionAreas(f, tr)}
 	  				</div>
 	 			</div>"""
 
 def tribeFunctions(t: Tribe):
-	return "".join(functionHTML(f) for f in t.functions)
+	return "".join(functionHTML(f, t) for f in t.functions)
 
 def competenceHTML(c: Competence):
 	return f"<div style='color:{c.color}'><h5>{c.name}</h5><p>{c.competence}</p></div>"
