@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Submit File</title>
+	<title>OrgChart - submit</title>
 </head>
 <body>
 	<form id="fileForm" enctype="multipart/form-data">
@@ -30,7 +30,7 @@
 			})
 			.then(response => response.text())
 			.then(data => {
-				h1.innerHTML += `The id for your file is: ${data}`;
+				h1.innerHTML += `The id for your file is: ${data} <br/> Here is the permalink for it: <a href="https://orgchart.nicolello.repl.co/test/${data}"=>https://orgchart.nicolello.repl.co/test/${data}</a>`;
 			})
 			.catch(error => {
 				console.error(error);
