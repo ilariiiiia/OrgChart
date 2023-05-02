@@ -1,6 +1,6 @@
 from utils.treeParser import TreeParser
 from utils.html import renderTribes, choiceHTML
-from utils.save import saveFile, uploadPath, getFileFromId
+from utils.save import saveFile, getFileFromId
 
 from flask import Flask, request
 
@@ -26,7 +26,11 @@ def upload_file():
 @app.route("/test/<path:id>")
 def test_view(id):
 	t = TreeParser(getFileFromId(id))
-	hide = "<script type='text/javascript'>let selected = document.querySelector('select').value;document.querySelectorAll('.allWrapper').forEach((it) => {it.id === selected ? it.style.display = 'flex' : it.style.display = 'none';})</script>"
+	hide = """
+<script type='text/javascript'>
+onChangeFun('tribeSelect', '.allWrapper');
+</script>
+	"""
 	return f"<style>{css}</style>{choiceHTML(t.tribes)}<div class='tribesWrapper'>{renderTribes(t.tribes)}</div>{hide}"
 
 
