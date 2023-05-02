@@ -50,6 +50,7 @@ select {
 
 .area {
 	width: 40%;
+	min-width: 100px;
 	background-color: #15c;
 }
 
