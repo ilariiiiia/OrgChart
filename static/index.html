@@ -4,7 +4,36 @@
 	<title>OrgChart - submit</title>
 </head>
 <body>
+	<style>
+		/* Apply a style to the file input field */
+		#fileInput {
+		  padding: 10px;
+		  border-radius: 5px;
+		  border: 1px solid #ccc;
+		  font-size: 16px;
+		  margin-right: 10px;
+		}
+		
+		/* Apply a style to the submit button */
+		#submitBtn {
+		  padding: 10px;
+		  border-radius: 5px;
+		  background-color: #4CAF50;
+		  color: white;
+		  border: none;
+		  font-size: 16px;
+		  cursor: pointer;
+		}
+		
+		/* Apply a style to the h1 element */
+		h1 {
+		  font-size: 24px;
+		  margin-top: 30px;
+		}
+		
+	</style>
 	<form id="fileForm" enctype="multipart/form-data">
+		<label>Choose your file here</label>
 		<input type="file" id="fileInput" autocomplete="off" required for='file' name="file">
 		<button type="button" id="submitBtn">Submit</button>
 	</form>
@@ -30,7 +59,7 @@
 			})
 			.then(response => response.text())
 			.then(data => {
-				h1.innerHTML += `The id for your file is: ${data} <br/> Here is the permalink for it: <a href="https://orgchart.nicolello.repl.co/test/${data}"=>https://orgchart.nicolello.repl.co/test/${data}</a>`;
+				h1.innerHTML = `The id for your file is: ${data} <br/> Here is the permalink for it: <a href="https://orgchart.nicolello.repl.co/test/${data}"=>https://orgchart.nicolello.repl.co/test/${data}</a>`;
 			})
 			.catch(error => {
 				console.error(error);

@@ -7,7 +7,7 @@ def uploadPath(_file):
 	return join(dirname(realpath(_file)), 'static/userdata/')
 
 def saveFile(request, _file):
-	n = len([name for name in os.listdir(uploadPath(_file)) if os.path.isfile(name)])
+	n = len(os.listdir('./static/userdata'))
 	if request.method == 'POST':
 		if 'file' not in request.files:
 			return "Wrong one little boy"
