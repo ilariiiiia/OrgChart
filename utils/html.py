@@ -1,6 +1,8 @@
 from utils.treeParser import Employee, Team, Area, Function, Tribe, Competence
 from typing import List
 
+def safeName(name: str):
+	return name.replace(' ', '_')
 
 def employeeHTML(e: Employee, l:List[Competence]):
 	c = Competence('Competence not found', 'An error occurred', '#FF0000')
@@ -25,7 +27,7 @@ def teamEmployees(t: Team, tr: Tribe):
 	return "".join(employeeHTML(e, tr.competences) for e in t.employees)
 
 def teamHTML(t: Team, tr: Tribe):
-	return f""" <div class='team'>
+	return f""" <div class='team' id={safeName(t.name)}>
  					<h5>
 	  					{t.name}
 					</h5>
@@ -41,7 +43,7 @@ def areaTeams(a: Area, tr: Tribe):
 	return "".join(teamHTML(t, tr) for t in a.teams)
 
 def areaHTML(a: Area, tr: Tribe):
-	return f""" <div class='area'>
+	return f""" <div class='area' id={safeName(a.name)}>
  					<h5>
 	  					{a.name}
 					</h5>
@@ -57,7 +59,7 @@ def functionAreas(f: Function, tr: Tribe):
 	return "".join(areaHTML(a, tr) for a in f.areas)
 
 def functionHTML(f: Function, tr: Tribe):
-	return f""" <div class='function'>
+	return f""" <div id={safeName(f.name)} class='function'>
  					<h5>
 	  					{f.name}
 					</h5>
@@ -79,7 +81,7 @@ def tribeCompetences(t: Tribe):
 	return "".join(competenceHTML(c) for c in t.competences)
 
 def tribeHTML(t: Tribe):
-	return f""" <div class='allWrapper' id={t.name}>
+	return f""" <div class='allWrapper' id={safeName(t.name)}>
 	 				<div class='tribe' style='max-width: {450*len(t.functions)}px'>
 						<h5>
 							{t.name}
@@ -100,6 +102,32 @@ def renderTribes(l:List[Tribe]):
 	return "".join(tribeHTML(t) for t in l)
 
 def choiceHTML(l:List[Tribe]):
-	onchange =  "\"let selected = document.querySelector('select').value;document.querySelectorAll('.allWrapper').forEach((it) => {it.id === selected ? it.style.display = 'flex' : it.style.display = 'none';});\""
+	onChangeFun = """
+<script type='text/javascript'>
+function onChangeFun(selector, selectorAll, disp){
+	let selected = document.querySelector('#'+selector).value;
+ 	selected = selected.replaceAll(' ', '_')
+ 	console.log(selected);
+ 	document.querySelectorAll(selectorAll).forEach((it) => {
+  		if(selected == 'Any'){
+			it.style.display = disp;
+	  	} else {
+  			it.id === selected ? it.style.display = disp : it.style.display = 'none';
+		}
+	});
+}
+</script>
+"""
+	return onChangeFun + tribeSelectHTML(l) + funcSelectHTML(l) + areaSelectHTML(l) + teamSelectHTML(l)
+	
+def tribeSelectHTML(l:List[Tribe]):
+	return  """<select id='tribeSelect' onchange="onChangeFun('tribeSelect', '.allWrapper', 'flex')">""" + '<option>Any</option>' + ''.join(f'<option id={t.name}>{t.name}</option>\n' for t in l) + '</select>'
 
-	return  f'<select onchange={onchange}>' + ''.join(f'<option id={t.name}>{t.name}</option>' for t in l) + '</select>'
+def funcSelectHTML(l:List[Tribe]):
+	return  """<select id='functionsSelect' onchange="onChangeFun('functionsSelect', '.function', 'block')">""" + '<option>Any</option>' + ''.join(''.join(f'<option id={f.name}>{f.name}</option>\n' for f in t.functions) for t in l) + '</select>'
+
+def areaSelectHTML(l:List[Tribe]):
+	return  """<select id='areasSelect' onchange="onChangeFun('areasSelect', '.area', 'block')">""" + '<option>Any</option>' + ''.join(''.join(''.join(f'<option id={a.name}>{a.name}</option>\n' for a in f.areas) for f in t.functions) for t in l) + '</select>'
+
+def teamSelectHTML(l:List[Tribe]):
+	return  """<select id='teamsSelect' onchange="onChangeFun('teamsSelect', '.team', 'block')">""" + '<option>Any</option>' + ''.join(''.join(''.join(''.join(f'<option id={t.name}>{t.name}</option>\n' for t in a.teams) for a in f.areas) for f in t.functions) for t in l) + '</select>'
