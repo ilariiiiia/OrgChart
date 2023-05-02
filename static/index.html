@@ -43,6 +43,22 @@
 	</h1>
 
 	<script>
+
+		function handleRES(res){
+			res = JSON.parse(res);
+			const h1 = document.querySelector("h1");
+			let color = res.success ? "black" : "red";
+			h1.style.color = color;
+			if(res.success) {
+				let data = res.message;
+				h1.innerHTML = `The id for your file is: ${data} <br/> Here is the permalink for it: <a href="https://orgchart.nicolello.repl.co/test/${data}"=>https://orgchart.nicolello.repl.co/test/${data}</a>`;
+			} else {
+				let data = res.message;
+				h1.innerHTML = `An error occurred! ${data}`
+			}
+			
+		}
+		
 		const form = document.getElementById("fileForm");
 		const fileInput = document.getElementById("fileInput");
 		const submitBtn = document.getElementById("submitBtn");
@@ -59,7 +75,7 @@
 			})
 			.then(response => response.text())
 			.then(data => {
-				h1.innerHTML = `The id for your file is: ${data} <br/> Here is the permalink for it: <a href="https://orgchart.nicolello.repl.co/test/${data}"=>https://orgchart.nicolello.repl.co/test/${data}</a>`;
+				handleRES(data);
 			})
 			.catch(error => {
 				console.error(error);
