@@ -82,7 +82,7 @@ def tribeCompetences(t: Tribe):
 
 def tribeHTML(t: Tribe):
 	return f""" <div class='allWrapper' id={safeName(t.name)}>
-	 				<div class='tribe' style='max-width: {450*len(t.functions)}px'>
+	 				<div class='tribe'>
 						<h5>
 							{t.name}
 						</h5>

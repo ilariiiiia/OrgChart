@@ -1,0 +1,24 @@
+Team Member,Competence,Team,Area,Function,Tribe,Competence Lead,Team Lead,Area Lead,Function Lead,Tribe Lead
+Employee 27,Operations,Content Ops DE,Coupons DE,Coupon Europe,Connect,Competence Lead 2,Team Lead 1,Area Lead 1,Function Lead 1,Tribe Lead 2
+Employee 28,Marketing,Marketing DE,Coupons DE,Coupon Europe,Connect,Competence Lead 1,Team Lead 6,Area Lead 1,Function Lead 1,Tribe Lead 2
+Employee 29,Operations,Content Ops FR,Coupons FR,Coupon Europe,Connect,Competence Lead 2,Team Lead 11,Area Lead 2,Function Lead 1,Tribe Lead 2
+Contractor 30,Marketing,Marketing FR,Coupons FR,Coupon Europe,Connect,Competence Lead 1,Team Lead 10,Area Lead 2,Function Lead 1,Tribe Lead 2
+Contractor 31,Operations,Customer Service DE,Loyalty DE,N/A,Loyalty,Competence Lead 2,Team Lead 2,Area Lead 6,N/A,Tribe Lead 3
+Employee 32,Marketing,Marketing DE,Loyalty DE,N/A,Loyalty,Competence Lead 1,Team Lead 6,Area Lead 6,N/A,Tribe Lead 3
+Employee 33,Operations,Customer Service FR,Loyalty FR,N/A,Loyalty,Competence Lead 2,Team Lead 9,Area Lead 7,N/A,Tribe Lead 3
+Contractor 34,Marketing,Marketing FR,Loyalty FR,N/A,Loyalty,Competence Lead 1,Team Lead 10,Area Lead 7,N/A,Tribe Lead 3
+Contractor 35,Marketing,Visual Studio,Global General Marketing,Global Marketing,Platform,Competence Lead 1,Team Lead 7,Area Lead 4,Function Lead 2,Tribe Lead 1
+Contractor 36,Marketing,Visual Studio,Global General Marketing,Global Marketing,Platform,Competence Lead 1,Team Lead 7,Area Lead 4,Function Lead 2,Tribe Lead 1
+Contractor 37,Marketing,Global General Marketing,Global General Marketing,Global Marketing,Platform,Competence Lead 1,Team Lead 4,Area Lead 4,Function Lead 2,Tribe Lead 1
+Employee 38,Marketing,Global General Marketing,Global General Marketing,Global Marketing,Platform,Competence Lead 1,Team Lead 4,Area Lead 4,Function Lead 2,Tribe Lead 1
+Employee 39,Marketing,Global CRM,Global CRM,Global Marketing,Platform,Competence Lead 1,Team Lead 3,Area Lead 3,Function Lead 2,Tribe Lead 1
+Employee 40,Marketing,Global CRM,Global CRM,Global Marketing,Platform,Competence Lead 1,Team Lead 3,Area Lead 3,Function Lead 2,Tribe Lead 1
+Employee 41,Marketing,Global Performance Marketing,Global Performance Marketing,Global Marketing,Platform,Competence Lead 1,Team Lead 5,Area Lead 5,Function Lead 2,Tribe Lead 1
+John Doe,Software Engineering,Platform,Technology,Engineering,Core,Emily Smith,Mary Johnson,David Lee,James Chen,Michelle Davis
+Jane Smith,Data Science,Analytics,Data Science,Engineering,Core,Andrew Johnson,Mary Johnson,David Lee,James Chen,Michelle Davis
+James Chen,Software Engineering,Platform,Technology,Engineering,Core,Emily Smith,Mary Johnson,David Lee,James Chen,Michelle Davis
+Emily Smith,Data Science,Analytics,Data Science,Engineering,Core,Andrew Johnson,Mary Johnson,David Lee,James Chen,Michelle Davis
+Mary Johnson,Software Engineering,Platform,Technology,Engineering,Core,Emily Smith,Mary Johnson,David Lee,James Chen,Michelle Davis
+David Lee,Data Science,Analytics,Data Science,Engineering,Core,Andrew Johnson,Mary Johnson,David Lee,James Chen,Michelle Davis
+Michelle Davis,Software Engineering,Platform,Technology,Engineering,Core,Emily Smith,Mary Johnson,David Lee,James Chen,Michelle Davis
+Andrew Johnson,Data Science,Analytics,Data Science,Engineering,Core,Andrew Johnson,Mary Johnson,David Lee,James Chen,Michelle Davis
