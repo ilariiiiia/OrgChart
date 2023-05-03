@@ -121,13 +121,13 @@ function onChangeFun(selector, selectorAll, disp){
 	return onChangeFun + tribeSelectHTML(l) + funcSelectHTML(l) + areaSelectHTML(l) + teamSelectHTML(l)
 	
 def tribeSelectHTML(l:List[Tribe]):
-	return  """<select id='tribeSelect' onchange="onChangeFun('tribeSelect', '.allWrapper', 'flex')">""" + '<option>Any</option>' + ''.join(f'<option id={t.name}>{t.name}</option>\n' for t in l) + '</select>'
+	return  """<label>Select tribe</label><select id='tribeSelect' onchange="onChangeFun('tribeSelect', '.allWrapper', 'flex')">""" + '<option>Any</option>' + ''.join(f'<option id={t.name}>{t.name}</option>\n' for t in l) + '</select>'
 
 def funcSelectHTML(l:List[Tribe]):
-	return  """<select id='functionsSelect' onchange="onChangeFun('functionsSelect', '.function', 'block')">""" + '<option>Any</option>' + ''.join(''.join(f'<option id={f.name}>{f.name}</option>\n' for f in t.functions) for t in l) + '</select>'
+	return  """<label>Select function</label><select id='functionsSelect' onchange="onChangeFun('functionsSelect', '.function', 'block')">""" + '<option>Any</option>' + ''.join(''.join(f'<option id={f.name}>{f.name}</option>\n' for f in t.functions) for t in l) + '</select>'
 
 def areaSelectHTML(l:List[Tribe]):
-	return  """<select id='areasSelect' onchange="onChangeFun('areasSelect', '.area', 'block')">""" + '<option>Any</option>' + ''.join(''.join(''.join(f'<option id={a.name}>{a.name}</option>\n' for a in f.areas) for f in t.functions) for t in l) + '</select>'
+	return  """<label>Select area</label><select id='areasSelect' onchange="onChangeFun('areasSelect', '.area', 'block')">""" + '<option>Any</option>' + ''.join(''.join(''.join(f'<option id={a.name}>{a.name}</option>\n' for a in f.areas) for f in t.functions) for t in l) + '</select>'
 
 def teamSelectHTML(l:List[Tribe]):
-	return  """<select id='teamsSelect' onchange="onChangeFun('teamsSelect', '.team', 'block')">""" + '<option>Any</option>' + ''.join(''.join(''.join(''.join(f'<option id={t.name}>{t.name}</option>\n' for t in a.teams) for a in f.areas) for f in t.functions) for t in l) + '</select>'
+	return  """<label>Select team</label><select id='teamsSelect' onchange="onChangeFun('teamsSelect', '.team', 'block')">""" + '<option>Any</option>' + ''.join(''.join(''.join(''.join(f'<option id={t.name}>{t.name}</option>\n' for t in a.teams) for a in f.areas) for f in t.functions) for t in l) + '</select>'
