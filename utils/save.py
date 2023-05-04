@@ -26,15 +26,17 @@ def checkFileExtension(request):
 	return '.' in file.filename and file.filename.rsplit('.', 1)[1].lower() == 'csv'
 
 def check_csv_header(file):
-	header = b'\xef\xbb\xbfTeam Member,Competence,Team,Area,Function,Tribe,Competence Lead,Team Lead,Area Lead,Function Lead,Tribe Lead'
-	
+	headeralt = b'\xef\xbb\xbfTeam Member,Competence,Team,Area,Function,Tribe,Competence Lead,Team Lead,Area Lead,Function Lead,Tribe Lead'
+	header = b'Team Member,Competence,Team,Area,Function,Tribe,Competence Lead,Team Lead,Area Lead,Function Lead,Tribe Lead'
 	for line in file.readlines():
 		
 		if not line:  # EOF
 			print("EOF")
 			return False
+
+		print(line.strip())
 		
-		if line.strip() == header:
+		if line.strip() == header or line.strip() == headeralt:
 			return True
 	
 	return False

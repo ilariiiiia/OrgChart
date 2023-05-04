@@ -10,6 +10,8 @@ app = Flask(__name__)
 
 css = open('static/global.css').read()
 
+checkChildren = open('static/checkChildren.js').read()
+
 @app.route("/")
 def index():
 	return open('static/index.html').read()
@@ -26,9 +28,10 @@ def upload_file():
 @app.route("/test/<path:id>")
 def test_view(id):
 	t = TreeParser(getFileFromId(id))
-	hide = """
+	hide = f"""
 <script type='text/javascript'>
 onChangeFun('tribeSelect', '.allWrapper');
+{checkChildren}
 </script>
 	"""
 	return f"<style>{css}</style>{choiceHTML(t.tribes)}<div class='tribesWrapper'>{renderTribes(t.tribes)}</div>{hide}"
