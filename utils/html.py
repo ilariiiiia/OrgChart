@@ -106,13 +106,16 @@ def choiceHTML(l:List[Tribe]):
 <script type='text/javascript'>
 function onChangeFun(selector, selectorAll, disp){
 	let selected = document.querySelector('#'+selector).value;
- 	selected = selected.replaceAll(' ', '_')
- 	console.log(selected);
+ 	selected = selected.replaceAll(' ', '_');
  	document.querySelectorAll(selectorAll).forEach((it) => {
   		if(selected == 'Any'){
 			it.style.display = disp;
 	  	} else {
-  			it.id === selected ? it.style.display = disp : it.style.display = 'none';
+  			if(it.id === selected){
+	 			it.style.display = disp;
+	 		} else {
+				it.style.display = 'none';
+			}
 		}
 	});
 }
