@@ -1,5 +1,4 @@
 function checkChildrenOf(i) {
-	console.log("called childrenOf with i", i, typeof(i));
 	const selectors = [".employee", ".team", ".area", ".function", ".tribe"];
 	if(!(i > 1 && i < selectors.length)) {
 		return;
