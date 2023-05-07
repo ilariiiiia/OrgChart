@@ -12,6 +12,12 @@ select {
 	padding: 5px;
 }
 
+.selectorsWrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
 .allWrapper {
 	display: flex;
 	align-items: center;

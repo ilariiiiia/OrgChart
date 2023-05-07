@@ -21,7 +21,7 @@ def employeeHTML(e: Employee, l:List[Competence]):
 	   				<p>
 						{e.name}
 	  				</p>
-	   				<span class="tooltiptext">{e.competence}</span>
+	   				<span class="tooltiptext">{e.competence}<br/>Lead: {e.competence_lead}</span>
 	  			</div>"""
 
 def teamEmployees(t: Team, tr: Tribe):
@@ -105,31 +105,40 @@ def choiceHTML(l:List[Tribe]):
 {open('./static/onChangeFunctions.js').read()}
 </script>
 """
-	return onChangeFun + tribeSelectHTML(l) + funcSelectHTML(l) + areaSelectHTML(l) + teamSelectHTML(l) + leadsHTML(l)
-	
+	return onChangeFun + '<div class="selectorsWrapper">' + broaderSelect(l) + leadsHTML(l) + '</div>'
+
+def broaderSelect(l:list[Tribe]):
+	return tribeSelectHTML(l) + funcSelectHTML(l) + areaSelectHTML(l) + teamSelectHTML(l) + compSelectHTML(l)
+
 def tribeSelectHTML(l:List[Tribe]):
-	return  """<label>Select tribe</label><select id='tribeSelect' onchange="onChangeFun('tribeSelect', '.allWrapper', 'flex', 5)">""" + '<option>Any</option>' + ''.join(f'<option id={t.name}>{t.name}</option>\n' for t in l) + '</select>'
+	return  """<label>Select tribe</label><input type="text" id="tribe_select_input" list="tribeSelect"><datalist id='tribeSelect' onchange="onChangeFun('tribeSelect', '.allWrapper', 'flex', 5)">""" + '<option>Any</option>' + ''.join(f'<option id={t.name}>{t.name}</option>\n' for t in l) + '</datalist>'
 
 def funcSelectHTML(l:List[Tribe]):
-	return  """<label>Select function</label><select id='functionsSelect' onchange="onChangeFun('functionsSelect', '.function', 'block', 4)">""" + '<option>Any</option>' + ''.join(''.join(f'<option id={f.name}>{f.name}</option>\n' for f in t.functions) for t in l) + '</select>'
+	return  """<label>Select function</label><input type="text" id="function_select_input" list="functionsSelect"><datalist id='functionsSelect' onchange="onChangeFun('functionsSelect', '.function', 'block', 4)">""" + '<option>Any</option>' + ''.join(''.join(f'<option id={f.name}>{f.name}</option>\n' for f in t.functions) for t in l) + '</datalist>'
 
 def areaSelectHTML(l:List[Tribe]):
-	return  """<label>Select area</label><select id='areasSelect' onchange="onChangeFun('areasSelect', '.area', 'block', 3)">""" + '<option>Any</option>' + ''.join(''.join(''.join(f'<option id={a.name}>{a.name}</option>\n' for a in f.areas) for f in t.functions) for t in l) + '</select>'
+	return  """<label>Select area</label><input type="text" id="areas_select_input" list="areasSelect"><datalist id='areasSelect' onchange="onChangeFun('areasSelect', '.area', 'block', 3)">""" + '<option>Any</option>' + ''.join(''.join(''.join(f'<option id={a.name}>{a.name}</option>\n' for a in f.areas) for f in t.functions) for t in l) + '</datalist>'
 
 def teamSelectHTML(l:List[Tribe]):
-	return  """<label>Select team</label><select id='teamsSelect' onchange="onChangeFun('teamsSelect', '.team', 'block', 2)">""" + '<option>Any</option>' + ''.join(''.join(''.join(''.join(f'<option id={t.name}>{t.name}</option>\n' for t in a.teams) for a in f.areas) for f in t.functions) for t in l) + '</select>'
+	return  """<label>Select team</label><input type="text" id="teams_select_input" list="teamsSelect"><datalist id='teamsSelect' onchange="onChangeFun('teamsSelect', '.team', 'block', 2)">""" + '<option>Any</option>' + ''.join(''.join(''.join(''.join(f'<option id={t.name}>{t.name}</option>\n' for t in a.teams) for a in f.areas) for f in t.functions) for t in l) + '</datalist>'
+
+def compSelectHTML(l:List[Tribe]):
+	return """<label>Select competence</label><input type="text" id="competence_select_input" list="competenceSelect"><datalist id='competenceSelect' onchange="onChangeFun('functionsSelect', '.function', 'block', 4)">""" + '<option>Any</option>' + ''.join(''.join(f'<option id={c.competence}>{c.competence}</option>\n' for c in t.competences) for t in l) + '</datalist>'
 
 def leadsHTML(l:List[Tribe]):
-	return tribeLeadHTML(l) + funcLeadHTML(l) + areaLeadHTML(l) + teamLeadHTML(l)
+	return tribeLeadHTML(l) + funcLeadHTML(l) + areaLeadHTML(l) + teamLeadHTML(l) + compLeadHTML(l)
 
 def tribeLeadHTML(l:List[Tribe]):
-	return  """<label>Select tribe lead</label><select id='tribeLead' onchange="onChangeLead('tribeLead', '.allWrapper', 'flex', 5)">""" + '<option>Any</option>' + ''.join(f'<option id={t.lead}>{t.lead}</option>\n' for t in l) + '</select>'
+	return  """<label>Select tribe lead</label><input type="text" id="tribe_lead_select_input" list="tribeLead"><datalist id='tribeLead' onchange="onChangeLead('tribeLead', '.allWrapper', 'flex', 5)">""" + '<option>Any</option>' + ''.join(f'<option id={t.lead}>{t.lead}</option>\n' for t in l) + '</datalist>'
 
 def funcLeadHTML(l:List[Tribe]):
-	return  """<label>Select function lead</label><select id='functionsLead' onchange="onChangeLead('functionsLead', '.function', 'block', 4)">""" + '<option>Any</option>' + ''.join(''.join(f'<option id={f.lead}>{f.lead}</option>\n' for f in t.functions) for t in l) + '</select>'
+	return  """<label>Select function lead</label><input type="text" id="functions_lead_select_input" list="functionsLead"><datalist id='functionsLead' onchange="onChangeLead('functionsLead', '.function', 'block', 4)">""" + '<option>Any</option>' + ''.join(''.join(f'<option id={f.lead}>{f.lead}</option>\n' for f in t.functions) for t in l) + '</datalist>'
 
 def areaLeadHTML(l:List[Tribe]):
-	return  """<label>Select area lead</label><select id='areasLead' onchange="onChangeLead('areasLead', '.area', 'block', 3)">""" + '<option>Any</option>' + ''.join(''.join(''.join(f'<option id={a.lead}>{a.lead}</option>\n' for a in f.areas) for f in t.functions) for t in l) + '</select>'
+	return  """<label>Select area lead</label><input type="text" id="areas_lead_select_input" list="areasLead"><datalist id='areasLead' onchange="onChangeLead('areasLead', '.area', 'block', 3)">""" + '<option>Any</option>' + ''.join(''.join(''.join(f'<option id={a.lead}>{a.lead}</option>\n' for a in f.areas) for f in t.functions) for t in l) + '</datalist>'
 
 def teamLeadHTML(l:List[Tribe]):
-	return  """<label>Select team lead</label><select id='teamsLead' onchange="onChangeLead('teamsLead', '.team', 'block', 2)">""" + '<option>Any</option>' + ''.join(''.join(''.join(''.join(f'<option id={t.lead}>{t.lead}</option>\n' for t in a.teams) for a in f.areas) for f in t.functions) for t in l) + '</select>'
+	return  """<label>Select team lead</label><input type="text" id="teams_lead_select_input" list="teamsLead"><datalist id='teamsLead' onchange="onChangeLead('teamsLead', '.team', 'block', 2)">""" + '<option>Any</option>' + ''.join(''.join(''.join(''.join(f'<option id={t.lead}>{t.lead}</option>\n' for t in a.teams) for a in f.areas) for f in t.functions) for t in l) + '</datalist>'
+
+def compLeadHTML(l:List[Tribe]):
+	return """<label>Select competence lead</label><input type="text" id="comp_lead_select_input" list="compLead"><datalist id='compLead' onchange="onChangeLead('tribeLead', '.allWrapper', 'flex', 5)">""" + '<option>Any</option>' + ''.join(''.join(f'<option id={c.name}>{c.name}</option>\n' for c in t.competences) for t in l) + '</datalist>'
