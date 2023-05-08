@@ -26,3 +26,9 @@ function checkChildrenOf(i) {
 	});
 	checkChildrenOf(i+1);
 }
+
+Array.from(document.querySelectorAll("input")).forEach((it) => {
+	it.onclick = function () {
+		it.value = '';
+	}
+})
