@@ -1,11 +1,11 @@
 function checkChildrenOf(i) {
 	const selectors = [".employee", ".team", ".area", ".function", ".tribe"];
-	if(!(i > 1 && i < selectors.length)) {
+	if(!(i > 0 && i < selectors.length)) {
 		return;
 	}
-	let parents = Array.from(document.querySelectorAll(selectors[i]));
+	let parents = document.querySelectorAll(selectors[i]);
 	parents.forEach((parent) => {
-		let children = Array.from(parent.querySelectorAll(selectors[i-1]));
+		let children = parent.querySelectorAll(selectors[i-1]);
 		let allHidden = true;
 		children.forEach((child) => {
 			if(getComputedStyle(child).display != 'none') {

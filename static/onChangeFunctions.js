@@ -1,81 +1,50 @@
-function onChangeFun(selector, selectorAll, disp, i){
-	let selected = document.querySelector('#'+selector).value;
- 	selected = selected.replaceAll(' ', '_');
- 	document.querySelectorAll(selectorAll).forEach((it) => {
-  		if(selected == 'Any'){
-			it.style.display = disp;
-	  	} else {
-  			if(it.id === selected){
-	 			it.style.display = disp;
-	 		} else {
-				it.style.display = 'none';
-			}
+function areAttributesEq(stats, inputs) {
+	let equal = false;
+	let allAny = true;
+	Object.entries(inputs).forEach(([key, value]) => {
+		if(value == 'Any'){
+			return; // continues the loop
+		}
+		allAny = false;
+		value = value.replaceAll(' ', '_');
+		if(value != stats[key]){
+			equal = true;
 		}
 	});
- 	checkChildrenOf(i);
+	if(allAny){
+		return false;
+	}
+	return equal;
 }
 
-function onChangeLead(selector, selectorAll, disp, i){
-	let done = false;
-	let selected = document.querySelector('#'+selector).value;
- 	document.querySelectorAll(selectorAll).forEach((it) => {
-  		if(selected == 'Any'){
-			it.style.display = disp;
-	  	} else {
-			let children = Array.from(it.children);
-  			if(children[1].innerHTML.trim() == selected){
-				console.log('displayed', it);
-	 			it.style.display = disp;
-				done = true;
-	 		} else {
-				console.log('hidden', it)
-				it.style.display = 'none';
-			}
-		}
+function onChange() {
+	let selectors = ["tribe", "functions", "areas", "teams", "competence"];
+	let modifiers = ["Select", "Lead"];
+	let inputs = {};
+	modifiers.forEach((mod) => {
+		selectors.forEach((sel) => {
+			let sum = sel + mod;
+			inputs[sum] = document.querySelector("#" + sum).value;
+		});
 	});
- 	checkChildrenOf(i);
-}
-
-function onChangeCompetence(lead) {
-	let selected = document.querySelector("#competenceSelect").value;
-	document.querySelectorAll(".employee").forEach((it) => {
-		let check = it.querySelector(".employeeCompetence")
-		if(lead){
-			check = it.querySelector(".employeeCompetenceLead")
-		}
-		if(check.innerHTML == selected){
-			it.style.display = 'none';
-		} else  {
-			it.style.display = 'block';
-		}
-		if(selected == 'Any'){
-			it.style.display = 'block';
+	selectors = ["tribe", "functions", "areas", "teams", "competence"];
+	modifiers = ["Select", "Lead"];
+	document.querySelectorAll(".employee").forEach((employee) => {
+		let employeeStats = {};
+		let hidden = false;
+		selectors.forEach((sel) => {
+			modifiers.forEach((mod) => {
+				let sum = sel + mod;
+				employeeStats[sum] = employee.getAttribute(sum);
+			});
+		});
+		if(areAttributesEq(employeeStats, inputs)){
+			employee.style.display = 'none';
+		} else {
+			employee.style.display = 'block';
 		}
 	});
 	checkChildrenOf(1);
-}
-
-function onChangeTribe(lead) {
-	let selected = document.querySelector("#tribeSelect").value;
-	if(lead){
-		selected = document.querySelector("#tribeLead").value;
-	}
-	document.querySelectorAll(".tribe").forEach((tribe) => {
-		if(selected == 'Any') {
-			tribe.style.display = 'block';
-			return;
-		}
-		let check = tribe.children[0].innerHTML;
-		if(lead) {
-			check = tribe.children[1].innerHTML;
-		}
-		check = check.trim();
-		if(check == selected) {
-			tribe.style.display = 'block';
-		} else {
-			tribe.style.display = 'none';
-		}
-	})
 }
 
 function reset() {
