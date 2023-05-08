@@ -30,7 +30,6 @@ def test_view(id):
 	t = TreeParser(getFileFromId(id))
 	hide = f"""
 <script type='text/javascript'>
-onChangeFun('tribeSelect', '.allWrapper');
 {checkChildren}
 </script>
 	"""
