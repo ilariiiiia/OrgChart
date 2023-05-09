@@ -16,9 +16,14 @@ checkChildren = open('static/checkChildren.js').read()
 def index():
 	return open('static/index.html').read()
 
-@app.route("/view")
-def view():
-	hide = "<script type='text/javascript'>let selected = document.querySelector('select').value;document.querySelectorAll('.allWrapper').forEach((it) => {it.id === selected ? it.style.display = 'flex' : it.style.display = 'none';})</script>"
+@app.route("/view/<path:id>")
+def view(id):
+	t = TreeParser(getFileFromId(id))
+	hide = f"""
+<script type='text/javascript'>
+{checkChildren}
+</script>
+	"""
 	return f"<style>{css}</style>{choiceHTML(t.tribes)}<div class='tribesWrapper'>{renderTribes(t.tribes)}</div>{hide}"
 
 @app.route('/submitFile', methods=['POST'])
