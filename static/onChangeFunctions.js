@@ -2,7 +2,7 @@ function areAttributesEq(stats, inputs) {
 	let equal = false;
 	let allAny = true;
 	Object.entries(inputs).forEach(([key, value]) => {
-		if(value == 'Any'){
+		if(value == 'Any' || value == ''){ // * values
 			return; // continues the loop
 		}
 		allAny = false;
