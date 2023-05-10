@@ -116,7 +116,7 @@ def choiceHTML(l:List[Tribe]):
 {open('./static/onChangeFunctions.js').read()}
 </script>
 """
-	return onChangeFun + '<div class="selectorsWrapper">' + broaderSelect(l) + leadsHTML(l) + resetHTML() + '</div>'
+	return onChangeFun + '<div class="selectorsWrapper">' + broaderSelect(l) + leadsHTML(l) + memberHTML(l) +  resetHTML() + '</div>'
 
 def broaderSelect(l:list[Tribe]):
 	return tribeSelectHTML(l) + funcSelectHTML(l) + areaSelectHTML(l) + teamSelectHTML(l) + compSelectHTML(l)
@@ -156,3 +156,6 @@ def compLeadHTML(l:List[Tribe]):
 
 def resetHTML():
 	return """<button onclick='reset()'>Reset</button>"""
+
+def memberHTML(l:List[Tribe]):
+	return  """<label>Select team member</label><input type="text" class='selectors' id="membersSelect" list="membersList" value="Any" onchange="onChange()"><datalist id='membersList'">""" + '<option>Any</option>' + ''.join(''.join(''.join(''.join(''.join(f'<option id={safeName(e.name)}>{e.name}</option>\n' for e in t.employees) for t in a.teams) for a in f.areas) for f in t.functions) for t in l) + '</datalist>'
