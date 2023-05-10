@@ -36,6 +36,53 @@ def employeeFromDict(li: list[dict]) -> list[Employee]:
 		) for l in li
 	]
 
+def is_readable_color(hex_color1, hex_color2):
+	"""
+	Checks if two hex colors are readable on top of each other.
+	"""
+	# Convert the hex colors to RGB format
+	r1, g1, b1 = tuple(int(hex_color1[i:i+2], 16) for i in (1, 3, 5))
+	r2, g2, b2 = tuple(int(hex_color2[i:i+2], 16) for i in (1, 3, 5))
+	
+	# Calculate the relative luminance of each color
+	def relative_luminance(r, g, b):
+		r_srgb = r / 255.0
+		g_srgb = g / 255.0
+		b_srgb = b / 255.0
+		
+		def srgb_to_linear(c):
+			if c <= 0.03928:
+				return c / 12.92
+			else:
+				return ((c + 0.055) / 1.055) ** 2.4
+		
+		r_linear = srgb_to_linear(r_srgb)
+		g_linear = srgb_to_linear(g_srgb)
+		b_linear = srgb_to_linear(b_srgb)
+		
+		return 0.2126 * r_linear + 0.7152 * g_linear + 0.0722 * b_linear
+	
+	lum1 = relative_luminance(r1, g1, b1)
+	lum2 = relative_luminance(r2, g2, b2)
+	
+	# Calculate the contrast ratio between the two colors
+	ratio = (max(lum1, lum2) + 0.05) / (min(lum1, lum2) + 0.05)
+	
+	# Calculate the threshold value based on the contrast ratio
+	threshold = 4.5 if ratio >= 7 else 3 if ratio >= 4.5 else 2
+	
+	# Calculate the difference between each color component
+	delta_r = abs(r1 - r2)
+	delta_g = abs(g1 - g2)
+	delta_b = abs(b1 - b2)
+	
+	# Calculate the average color difference
+	avg_delta = (delta_r + delta_g + delta_b) / 3
+	
+	# Check if the colors are readable on top of each other
+	return avg_delta <= threshold
+
+
 class Team:
 	def __init__(self, name:str, lead:str, employees:list[Employee]):
 		self.name = name
@@ -89,7 +136,7 @@ class Competence:
 	def __init__(self, name, competence, color=None):
 		self.name = name
 		self.competence = competence
-		self.color = color or "#" + ''.join([random.choice('0123456789ABCDEF') for j in range(6)])
+		self.color = "#" + ''.join([random.choice('346789ABCDEF') for j in range(6)]) # Remove 012 to avoid dark colors
 
 class Tribe:
 	def __init__(self, name:str, lead:str, employees:list[Employee]):
