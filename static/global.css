@@ -55,7 +55,6 @@ select {
 }
 
 .area {
-	width: 40%;
 	min-width: 100px;
 	background-color: #15c;
 }
@@ -77,6 +76,13 @@ select {
     margin: 15px 0px;
     width: fit-content;
     padding: 5px;
+}
+
+.employeesWrapper {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 
 .employee {
