@@ -12,7 +12,7 @@ def employeeHTML(e: Employee, l:List[Competence]):
 			c = com
 			
 	return f""" <div class="employee tooltip"
-					attname={safeName(e.name)}
+					employeeName={safeName(e.name)}
 					teamsSelect={safeName(e.team)}
 					competenceSelect={safeName(e.competence)}
 					areasSelect={safeName(e.area)}

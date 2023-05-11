@@ -27,6 +27,7 @@ function onChange() {
 			inputs[sum] = document.querySelector("#" + sum).value;
 		});
 	});
+	inputs["employeeName"] = document.querySelector("#membersSelect").value;
 	selectors = ["tribe", "functions", "areas", "teams", "competence"];
 	modifiers = ["Select", "Lead"];
 	document.querySelectorAll(".employee").forEach((employee) => {
@@ -38,6 +39,7 @@ function onChange() {
 				employeeStats[sum] = employee.getAttribute(sum);
 			});
 		});
+		employeeStats["employeeName"] = employee.getAttribute('employeeName');
 		if(areAttributesEq(employeeStats, inputs)){
 			employee.style.display = 'none';
 		} else {
